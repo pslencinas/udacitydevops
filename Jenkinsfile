@@ -3,6 +3,7 @@ pipeline {
   stages {
     stage('Lint') {
       steps {
+        echo 'Checking Lint...'
         sh 'make lint'
       }
     }
