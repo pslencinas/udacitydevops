@@ -13,7 +13,7 @@ echo "Docker ID and Image: $dockerpath"
 docker login
 
 # Step 3:
-docker tag mlapi ${dockerpath}
+#docker tag mlapi ${dockerpath}
 docker push ${dockerpath}
 
 $SHELL
