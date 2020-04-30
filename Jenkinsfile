@@ -7,6 +7,7 @@ pipeline {
         sh 'make lint'
       }
     }
+
     stage('Build Docker') {
       steps {
         sh 'make build'
@@ -24,6 +25,5 @@ pipeline {
     stage('Deploy container') {
 
     }
-    
   }
 }
