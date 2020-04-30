@@ -1,5 +1,4 @@
 pipeline {
-  def img = 'pslencinas/myproject'
   agent any
   stages {
     stage('Checking out git repo') {
@@ -24,15 +23,15 @@ pipeline {
         echo 'Building Docker image...'
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh "docker build -t ${img} ."
-          sh "docker tag ${img} ${img}"
+          sh "docker build -t pslencinas/myproject ."
+          sh "docker tag pslencinas/myproject pslencinas/myproject"
         }
       }
     }
     stage('Push image') {
       steps {
         echo 'Pushing Image'
-        sh "docker push ${img}"
+        sh "docker push pslencinas/myproject"
       }
     }
     // stage('set current kubectl context') {
