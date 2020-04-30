@@ -8,4 +8,4 @@ docker image ls
 
 # Step 3: 
 # Run create-react-app
-docker run -p 5000:8000 pslencinas/myproject
+docker run -p 5000:80 pslencinas/myproject
