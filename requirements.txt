@@ -1,2 +1,5 @@
+make
+python-pip
+python3-pip
 Flask
 pylint
