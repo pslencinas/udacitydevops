@@ -21,23 +21,24 @@ pipeline {
         sh 'pylint --disable=R,C,W app.py'
       }
     }
-
     stage('Building Docker image') {
       steps {
         echo 'Building Docker image...'
-        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh "sudo docker build -t pslencinas/myproject ."
-          sh "sudo docker tag pslencinas/myproject pslencinas/myproject"
+        sh "sudo docker build -t pslencinas/myproject ."
+        sh "sudo docker tag pslencinas/myproject pslencinas/myproject"
         }
       }
     }
-    stage('Push image') {
+    stage('Pushing Docker image') {
       steps {
-        echo 'Pushing Image'
-        sh "sudo docker push pslencinas/myproject"
+        echo 'Building Docker image...'
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "sudo docker push pslencinas/myproject"
+          
+        }
       }
     }
+    
     // stage('set current kubectl context') {
 
     // }
