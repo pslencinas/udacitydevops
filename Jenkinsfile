@@ -12,11 +12,17 @@ pipeline {
         sh 'make build'
       }
     }
-    
-    stage('Upload Image') {
+    stage('Push image') {
       steps {
         sh 'make upload'
       }
+    }
+    stage('set current kubectl context') {
+
+    }
+
+    stage('Deploy container') {
+
     }
     
   }
