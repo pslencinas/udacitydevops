@@ -1,29 +1,46 @@
 pipeline {
+  def img = 'pslencinas/myproject'
   agent any
   stages {
-    stage('Lint') {
+    stage('Checking out git repo') {
+      echo 'Checkout...'
+      checkout scm
+    }
+    stage('Checking environment') {
+      echo 'Checking environment...'
+      sh 'git --version'
+      sh 'docker -v'
+    }
+    stage('Linting') {
       steps {
         echo 'Checking Lint...'
-        sh 'make lint'
+        sh 'hadolint Dockerfile'
+        sh 'pylint --disable=R,C,W app.py'
       }
     }
 
-    stage('Build Docker') {
+    stage('Building Docker image') {
       steps {
-        sh 'make build'
+        echo 'Building Docker image...'
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          sh "docker build -t ${img} ."
+          sh "docker tag ${img} ${img}"
+        }
       }
     }
     stage('Push image') {
       steps {
-        sh 'make upload'
+        echo 'Pushing Image'
+        sh "docker push ${img}"
       }
     }
-    stage('set current kubectl context') {
+    // stage('set current kubectl context') {
 
-    }
+    // }
 
-    stage('Deploy container') {
+    // stage('Deploy container') {
 
-    }
+    // }
   }
 }
