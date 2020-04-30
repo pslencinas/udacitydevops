@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Pushing Docker image') {
       steps {
-        echo 'Building Docker image...'
+        echo 'Pushing Docker image...'
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "sudo docker push pslencinas/myproject"
           
@@ -39,12 +39,10 @@ pipeline {
       }
     }
     
-    // stage('set current kubectl context') {
+    // stage('Deploy to EKS') {
 
     // }
 
-    // stage('Deploy container') {
-
-    // }
+   
   }
 }
