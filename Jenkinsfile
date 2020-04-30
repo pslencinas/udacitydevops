@@ -26,7 +26,7 @@ pipeline {
         echo 'Building Docker image...'
         sh "sudo docker build -t pslencinas/myproject ."
         sh "sudo docker tag pslencinas/myproject pslencinas/myproject"
-        }
+        
       }
     }
     stage('Pushing Docker image') {
