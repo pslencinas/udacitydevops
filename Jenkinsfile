@@ -24,8 +24,8 @@ pipeline {
     stage('Building Docker image') {
       steps {
         echo 'Building Docker image...'
-        sh "sudo docker build -t pslencinas/myproject ."
-        sh "sudo docker tag pslencinas/myproject pslencinas/myproject"
+        sh "docker build -t pslencinas/myproject ."
+        sh "docker tag pslencinas/myproject pslencinas/myproject"
         
       }
     }
@@ -33,7 +33,7 @@ pipeline {
       steps {
         echo 'Pushing Docker image...'
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "sudo docker push pslencinas/myproject"
+          sh "docker push pslencinas/myproject"
           
         }
       }
