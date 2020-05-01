@@ -32,10 +32,7 @@ pipeline {
     stage('Pushing Docker image') {
       steps {
         echo 'Pushing Docker image...'
-        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "sudo docker push pslencinas/myproject"
-          
-        }
+        sh 'sudo make upload'
       }
     }
     
