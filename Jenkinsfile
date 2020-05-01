@@ -35,7 +35,6 @@ pipeline {
         sh 'sudo make upload'
       }
     }
-    
     stage('Deploying to EKS') {
       steps {
         echo 'Deploying to EKS...'
@@ -47,7 +46,10 @@ pipeline {
           }
       }
     }
-
+    stage("Cleaning up") {
+      echo 'Cleaning up...'
+      sh "docker system prune -a"
+    }
    
   }
 }
