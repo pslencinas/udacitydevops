@@ -21,14 +21,14 @@ pipeline {
         sh 'pylint --disable=R,C,W app.py'
       }
     }
-    stage('Building Docker image') {
-      steps {
-        echo 'Building Docker image...'
-        sh "sudo docker build -t pslencinas/myproject ."
-        sh "sudo docker tag pslencinas/myproject pslencinas/myproject"
+    // stage('Building Docker image') {
+    //   steps {
+    //     echo 'Building Docker image...'
+    //     sh "sudo docker build -t pslencinas/myproject ."
+    //     sh "sudo docker tag pslencinas/myproject pslencinas/myproject"
         
-      }
-    }
+    //   }
+    // }
     stage('Login Docker Hub') {
       steps {
         echo 'Login Docker Hub...'
