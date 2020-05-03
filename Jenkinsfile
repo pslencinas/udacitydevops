@@ -1,4 +1,5 @@
 pipeline {
+  def registry = 'pslencinas/myproject'
   agent any
   stages {
     stage('Checking out git repo') {
@@ -32,16 +33,20 @@ pipeline {
     stage('Pushing Docker image') {
       steps {
         echo 'Pushing Docker image...'
-        sh 'sudo make upload'
+        sh 'sudo docker push pslencinas/myproject'
       }
     }
     stage('Deploying to EKS') {
       steps {
         echo 'Deploying to EKS...'
-        dir('k8s') {
+        dir('/') {
           withAWS(credentials: 'aws-credentials', region: 'eu-west-2') {
-              sh "aws eks --region eu-west-2 update-kubeconfig --name capstone"
-              sh 'kubectl apply -f capstone-k8s.yaml'
+              sh "aws eks --region eu-central-1 update-kubeconfig --name CapstoneEKS-VUUZkwHTDVPa"
+            sh "kubectl apply -f aws/aws-auth-cm.yaml"
+            sh "kubectl set image deployments/capstone-app capstone-app=pslencinas/myproject:latest"
+            sh "kubectl apply -f aws/capstone-app-deployment.yml"
+            sh "kubectl get nodes"
+            sh "kubectl get pods"
             }
           }
       }

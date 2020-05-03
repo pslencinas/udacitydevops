@@ -1,0 +1,10 @@
+pasos a seguir:
+
+1) Crear un Role IAM con permisos EKS
+2) Crear la infraestructura (create_infra.sh -> infra.yml -> infra-parameters.yml)
+3) Crear el Cluster EKS (create_eks.sh -> eks.yml -> eks_paramenters.yml)
+4) asociar EKS a la consola (aws eks update-kubeconfig --name "ClusterName")
+5) Crear Nodes (create_nodes.sh -> nodes.yml -> nodes_parameters.yml)
+6) Asociar los nodos al Cluster con el ARN (kubectl apply -f aws/aws-auth-cm.yaml)
+7) Seteo imagen a utilizar
+8) Realizo deployment de la aplicación
