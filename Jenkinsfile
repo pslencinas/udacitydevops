@@ -45,15 +45,14 @@ pipeline {
     stage('Deploying to EKS') {
       steps {
         echo 'Deploying to EKS...'
-        dir('/') {
-          
-            sh "aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-wQ75l4pMqesU"
-            sh "kubectl apply -f aws/aws-auth-cm.yaml"
-            sh "kubectl set image deployments/capstone-app capstone-app=pslencinas/myproject:latest"
-            sh "kubectl apply -f aws/capstone-app-deployment.yml"
-            sh "kubectl get nodes"
-            sh "kubectl get pods"
-        }
+        
+          sh "aws eks --region us-west-2 update-kubeconfig --name CapstoneEKS-wQ75l4pMqesU"
+          sh "kubectl apply -f aws/aws-auth-cm.yaml"
+          sh "kubectl set image deployments/capstone-app capstone-app=pslencinas/myproject:latest"
+          sh "kubectl apply -f aws/capstone-app-deployment.yml"
+          sh "kubectl get nodes"
+          sh "kubectl get pods"
+      
           
       }
     }
