@@ -1,5 +1,4 @@
 pipeline {
-  def registry = 'pslencinas/myproject'
   agent any
   stages {
     stage('Checking out git repo') {
