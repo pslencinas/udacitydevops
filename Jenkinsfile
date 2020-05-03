@@ -29,13 +29,18 @@ pipeline {
         
       }
     }
+    stage('Login Docker Hub') {
+      steps {
+        echo 'Building Docker image...'
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
+        }
+      }
+    }
     stage('Pushing Docker image') {
       steps {
         echo 'Pushing Docker image...'
-        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          sh 'sudo docker push pslencinas/myproject'
-        }
+        sh 'sudo docker push pslencinas/myproject'
       }
     }
     stage('Deploying to EKS') {
