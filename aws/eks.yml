@@ -10,7 +10,7 @@ Resources:
     Type: AWS::EKS::Cluster
     Properties:
       Version: '1.13'
-      RoleArn: arn:aws:iam::358599436160:role/eks-role
+      RoleArn: arn:aws:iam::887514741471:role/eksrole
       ResourcesVpcConfig:
         SecurityGroupIds:
         - Fn::ImportValue:
