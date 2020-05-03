@@ -7,9 +7,6 @@ spec:
   type: LoadBalancer
   ports:
     - port: 5000
-      targetPort: 5000
-      # nodePort: 31234
-      name: tcp-5000
       protocol: TCP
   selector:
     app: capstone-app
