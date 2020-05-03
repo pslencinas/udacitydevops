@@ -32,7 +32,7 @@ pipeline {
     stage('Login Docker Hub') {
       steps {
         echo 'Login Docker Hub...'
-        sh "docker login -u env.dockerHubUser -p env.dockerHubPassword"
+        sh "sudo docker login -u env.dockerHubUser -p env.dockerHubPassword"
       }
     }
     stage('Pushing Docker image') {
