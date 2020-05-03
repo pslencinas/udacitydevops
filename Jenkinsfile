@@ -32,7 +32,9 @@ pipeline {
     stage('Pushing Docker image') {
       steps {
         echo 'Pushing Docker image...'
-        sh 'sudo docker push pslencinas/myproject'
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh 'sudo docker push pslencinas/myproject'
+        }
       }
     }
     stage('Deploying to EKS') {
