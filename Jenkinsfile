@@ -33,6 +33,7 @@ pipeline {
       steps {
         echo 'Pushing Docker image...'
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           sh 'sudo docker push pslencinas/myproject'
         }
       }
