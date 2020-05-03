@@ -32,7 +32,7 @@ pipeline {
     stage('Login Docker Hub') {
       steps {
         echo 'Login Docker Hub...'
-        echo ${env.dockerHubUser}
+        echo '${env.dockerHubUser}'
         sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
       }
     }
